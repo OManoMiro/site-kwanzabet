@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-ao" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - KwanzaBet | Notícias e Dicas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap');
+        body { font-family: 'Inter', sans-serif; background: #f7f7f7; }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+
+    <!-- Header (Alinhado ao seu index) -->
+    <header class="bg-[#0f0f0f] border-b border-white/10 p-4">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0f9d58] overflow-hidden">
+                    <img src="rais/icons/icon-192.png" alt="Logo" class="h-full w-full object-contain p-1.5">
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-white font-black text-base tracking-[0.22em]">KWANZABET</span>
+                    <span class="text-[10px] text-gray-400 uppercase tracking-[0.35em]">Blog</span>
+                </div>
+            </div>
+            <a href="/" class="text-white font-bold text-sm hover:text-[#0f9d58] transition-colors">← Voltar</a>
+        </div>
+    </header>
+
+    <!-- Conteúdo Dinâmico -->
+    <main class="max-w-4xl mx-auto p-5 mt-10 min-h-[60vh]">
+        <h1 class="text-4xl font-black mb-12 text-center uppercase">Notícias e Dicas</h1>
+        
+        <!-- O agente irá preencher este container -->
+        <div id="blog-container" class="grid gap-8">
+            <p class="text-center text-gray-500">A carregar artigos do agente...</p>
+        </div>
+    </main>
+
+    <footer class="bg-[#111] text-gray-400 py-10 text-center text-sm mt-20">
+        &copy; 2026 KwanzaBet - Apostas Online
+    </footer>
+
+    <!-- Integração com o Agente -->
+    <script>
+        <!-- Integração com o Agente no Render -->
+    <script>
+        async function carregarArtigos() {
+            try {
+                // URL do seu agente no Render
+                const response = await fetch('https://kwanzabet-seo-project.onrender.com/api/blog-posts');
+                const data = await response.json();
+                
+                const container = document.getElementById('blog-container');
+                
+                // Renderização dos dados
+                container.innerHTML = data.posts.map(post => `
+                    <article class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <h2 class="text-2xl font-black mb-3 text-gray-900">${post.titulo}</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">${post.resumo}</p>
+                        <a href="${post.url}" class="text-[#0f9d58] font-bold hover:underline">Ler artigo completo →</a>
+                    </article>
+                `).join('');
+            } catch (error) {
+                console.error("Erro na conexão:", error);
+                document.getElementById('blog-container').innerHTML = `
+                    <div class="text-center p-6 bg-red-50 rounded-xl text-red-600">
+                        O serviço de blog está temporariamente indisponível.
+                    </div>
+                `;
+            }
+        }
+        window.addEventListener('DOMContentLoaded', carregarArtigos);
+    </script>
